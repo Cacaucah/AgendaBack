@@ -1,5 +1,7 @@
 package br.com.agenda.educacional.AgendaEducacional.services;
 
+import java.util.Optional;
+
 import br.com.agenda.educacional.AgendaEducacional.model.entity.Localizacao;
 
 public interface LocalService {
@@ -8,5 +10,8 @@ public interface LocalService {
 	
 	//atualiza o local
 	Localizacao atualizarLocalizacao(Localizacao local);
+	
+	Optional<Localizacao> obterPorId(Long id);
+
 
 }

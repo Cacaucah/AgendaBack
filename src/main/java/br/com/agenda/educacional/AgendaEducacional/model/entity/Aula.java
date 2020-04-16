@@ -4,11 +4,10 @@
 package br.com.agenda.educacional.AgendaEducacional.model.entity;
 
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,7 +18,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import br.com.agenda.educacional.AgendaEducacional.enums.NaturezaAula;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ import lombok.NoArgsConstructor;
  *
  */
 @Entity
-@Table(name = "aulas", schema = "agendaeducacional")
+@Table(name = "aula", schema = "agendaeducacional")
 @Builder
 @Data
 @NoArgsConstructor
@@ -46,31 +46,32 @@ public class Aula {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_materia")
+	@JoinColumn(name = "materia")
 	private Materia materia;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_aluno")
+	@JoinColumn(name = "aluno")
 	private Aluno aluno;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_instituicao")
+	@JoinColumn(name = "instituicao")
 	private Instituicao instituicao;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_professor")
+	@JoinColumn(name = "professor")
 	private Professor professor;
 	
-	@Column(name = "tipo_de_aula")
+	@Column(name = "aula")
 	@Enumerated(value = EnumType.STRING)	
 	private NaturezaAula tipoDeAula;
 	
-	@Column(name = "data")
-	@Convert(converter = Jsr310JpaConverters.LocalDateConverter.class)
+	@Column(name = "datas")
+    @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	@JsonProperty("data")
 	private LocalDate data;
 	
 	@Column(name = "hora")
-	private Time hora;
+	private LocalTime hora;
 	
 	@Column(name = "detalhes")
 	private String detalhes;

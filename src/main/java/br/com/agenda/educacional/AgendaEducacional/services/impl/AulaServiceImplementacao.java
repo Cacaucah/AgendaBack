@@ -1,6 +1,9 @@
 package br.com.agenda.educacional.AgendaEducacional.services.impl;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -44,21 +47,33 @@ public class AulaServiceImplementacao implements AulaService {
 	}
 
 	public void validar(Aula aula) {
-		if (aula.getDetalhes().trim().equals("") || aula.getId() == null) {
+		
+		if(aula.getDetalhes().trim().equals("")){
 			throw new RegraNegocioException("Descrição inválida.");
 		}
 		// se o tipo da aula for particular e o valor informado for menor que
 		// zero, lançar excpetion
-		if (aula.getTipoDeAula().equals(NaturezaAula.PARTICULAR) && aula.getValor().compareTo(BigDecimal.ZERO) < 0) {
+		if (aula.getTipoDeAula().equals(NaturezaAula.PARTICULAR) && aula.getValor().compareTo(BigDecimal.ZERO) < 1) {
 			throw new RegraNegocioException("Informe um Valor válido.");
 		}
+		
 	}
+	//retorna a data atual
+	public Date dataAtual(){
+		Date d = new Date();
 
+		Calendar cal = new GregorianCalendar();
+
+		cal.setTime(d);
+		return cal.getTime();
+	}
 	@Override
 	@Transactional
 	public void deletar(Aula aula) {
+		
 		// verifica se o objeto que chega não é nullo
 		Objects.requireNonNull(aula.getId());
+		//validar no front o delete
 		repository.delete(aula);
 	}
 

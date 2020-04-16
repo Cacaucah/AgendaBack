@@ -46,11 +46,15 @@ public class AlunoServiceImplementacao implements AlunoService {
 		validar(aluno);
 		return repository.save(aluno);
 	}
-
-	private void validar(Aluno aluno) {
+	@Override
+	public void validar(Aluno aluno) {
 		//valida se o campo aluno foi preenchido
-		if(aluno.getId()==null || aluno.getNome().trim().equals("")){
+		//se aluno for null ou o nome não for informado, lança exception
+		if(aluno.getId()==null && aluno.getNome().trim().equals("")){
 			throw new RegraNegocioException("Informe os dados corretamente!");
+		}
+		if(aluno.getId()!=null && aluno.getNome().trim().equals("")){
+			throw new RegraNegocioException("Informe o nome do aluno.");
 		}
 	}
 
@@ -76,6 +80,11 @@ public class AlunoServiceImplementacao implements AlunoService {
 		// TODO Auto-generated method stub
 		Objects.requireNonNull(aluno.getId());
         repository.delete(aluno);
+	}
+
+	@Override
+	public Aluno getById(Long id) {
+		return repository.getById(id);
 	}
 
 }

@@ -1,5 +1,6 @@
 package br.com.agenda.educacional.AgendaEducacional.services.impl;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,21 @@ public class ProfessorServiceImplementacao implements ProfessorService {
 	public Optional<Professor> obterPorId(Long id) {
 		// TODO Auto-generated method stub
 		return repository.findById(id);
+	}
+
+
+	@Override
+	public Professor editarProfessor(Professor professor) {
+		Objects.requireNonNull(professor.getId());
+		validarEmail(professor.getEmail());
+		// se for valida, então salva o professor
+		return repository.save(professor);
+	}
+
+
+	@Override
+	public Professor getById(Long id) {
+		return repository.getById(id);
 	}
 
 }

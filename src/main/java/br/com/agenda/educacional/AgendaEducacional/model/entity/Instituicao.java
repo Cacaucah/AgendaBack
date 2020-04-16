@@ -5,8 +5,6 @@ package br.com.agenda.educacional.AgendaEducacional.model.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,13 +20,12 @@ import lombok.NoArgsConstructor;
  *
  */
 @Entity
-@Table(name = "instituicoes", schema = "agendaeducacional")
+@Table(name = "instituicao", schema = "agendaeducacional")
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Instituicao {
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +36,12 @@ public class Instituicao {
 	@Column(name = "nome")
 	private String nome;
 	
-	@Column(name = "local")
-	@Enumerated(value = EnumType.STRING)	
-	private Localizacao local;
+	@Column(name = "rua")
+	private String rua;
+	
+	@Column(name = "numero")
+	private Long numero;
+	
+	@Column(name = "cep")
+	private String cep;
 }

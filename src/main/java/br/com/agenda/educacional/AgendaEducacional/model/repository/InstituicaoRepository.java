@@ -9,4 +9,6 @@ import br.com.agenda.educacional.AgendaEducacional.model.entity.Instituicao;
 public interface InstituicaoRepository extends JpaRepository<Instituicao, Long> {
 
 	Optional<Instituicao> findById(Long id);
+
+	Instituicao getById(Long idInstituicao);
 }

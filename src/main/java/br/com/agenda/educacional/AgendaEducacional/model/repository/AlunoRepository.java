@@ -11,5 +11,8 @@ public interface AlunoRepository extends JpaRepository<Aluno, Long>{
 	
 	//Encontra um aluno por Id
 	Optional<Aluno> findById(Long id);
+	
+	Aluno getById(Long id);
+	
 		
 }

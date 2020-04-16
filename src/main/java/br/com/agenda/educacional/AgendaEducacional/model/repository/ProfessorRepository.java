@@ -17,4 +17,6 @@ public interface ProfessorRepository extends JpaRepository<Professor, Long>{
 	//Encontra um professor por email cadastrado no banco e retorna
 	//um optional daquele professor
 	Optional<Professor> findByEmail(String email);
+	
+	Professor getById(Long id);
 }

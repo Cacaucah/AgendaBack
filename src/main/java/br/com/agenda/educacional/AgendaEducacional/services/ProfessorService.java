@@ -12,9 +12,14 @@ public interface ProfessorService {
 	//Salva na base de dados
 	Professor salvarProfessor(Professor professor);
 	
+	Professor editarProfessor(Professor professor);
+
 	//valida o email
 	void validarEmail(String email);
 	
 	public Optional<Professor> obterPorId(Long id);
+	
+	public Professor getById(Long id);
+
 
 }

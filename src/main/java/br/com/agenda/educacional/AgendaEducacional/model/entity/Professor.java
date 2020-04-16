@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 
 //mapeamento de entidades
 @Entity
-@Table(name = "usuarios", schema = "agendaeducacional")
+@Table(name = "professor", schema = "agendaeducacional")
 @Builder
 @Data
 //cria um construtor sem argumentos

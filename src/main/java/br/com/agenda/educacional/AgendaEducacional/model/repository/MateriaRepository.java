@@ -10,4 +10,7 @@ public interface MateriaRepository extends JpaRepository<Materia, Long>{
 
 	//Encontra uma materia por Id
 	Optional<Materia> findById(Long id);
+	
+	Materia getById(Long id);
+
 }
