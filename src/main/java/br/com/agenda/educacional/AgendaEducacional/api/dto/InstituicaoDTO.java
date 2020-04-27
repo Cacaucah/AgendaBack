@@ -24,5 +24,6 @@ public class InstituicaoDTO {
 	private String nome;
 	private String rua;
 	private Long numero;
+	private Long professor;
 	private String cep;
 }

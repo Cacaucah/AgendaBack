@@ -42,16 +42,14 @@ public class AlunoController {
 	@GetMapping
     public ResponseEntity buscar(
             @RequestParam(value = "nome", required = false) String nome,
-            @RequestParam(value = "situacao", required = false) String situacao,
+            @RequestParam(value = "situacao", required = false) Situacao situacao,
             @RequestParam (value="professor") Long idProfessor
             ){
         Aluno alunoFiltro = new Aluno();
         alunoFiltro.setNome(nome);
-        if(situacao.equals("ATIVO")){
-            alunoFiltro.setSituacao(Situacao.ATIVO);
-        }else{
-            alunoFiltro.setSituacao(Situacao.INATIVO);
-        }
+        alunoFiltro.setSituacao(situacao);
+      
+        
         Optional<Professor> professor = professorService.obterPorId(idProfessor);
         if(!professor.isPresent()){
             return ResponseEntity.badRequest().body("Não foi possível realizar a consulta. Usuário não encontrado para o id informado.");

@@ -10,5 +10,5 @@ package br.com.agenda.educacional.AgendaEducacional.enums;
 public enum Situacao {
 	
 	ATIVO,
-	INATIVO
+	INATIVO,
 }
