@@ -24,6 +24,10 @@ public class InstituicaoDTO {
 	private String nome;
 	private String rua;
 	private Long numero;
-	private Long professor;
 	private String cep;
+	private Long professor;
+	private String estado;
+	private String cidade;
+	private Situacao situacao;
+	private String telefone;
 }

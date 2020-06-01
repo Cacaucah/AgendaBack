@@ -50,7 +50,8 @@ public class AulaServiceTest {
 		Aula aulaSalva = criarAula();
 		aulaSalva.setId(1l);
 		aulaSalva.setData(data);
-		aulaSalva.setHora(LocalTime.now());
+		aulaSalva.setHoraInicial(LocalTime.now());
+		aulaSalva.setHoraFim(LocalTime.now());
 		aulaSalva.setDetalhes("Noturna");
 		aulaSalva.setTipoDeAula(NaturezaAula.PARTICULAR);
 		aulaSalva.setValor(BigDecimal.valueOf(1));
@@ -66,7 +67,8 @@ public class AulaServiceTest {
 		Assertions.assertThat(aula.getInstituicao()).isEqualTo(aulaSalva.getInstituicao());
 		Assertions.assertThat(aula.getMateria()).isEqualTo(aulaSalva.getMateria());
 		Assertions.assertThat(aula.getData()).isEqualTo(aulaSalva.getData());
-		Assertions.assertThat(aula.getHora()).isEqualTo(aulaSalva.getHora());
+		Assertions.assertThat(aula.getHoraInicial()).isEqualTo(aulaSalva.getHoraInicial());
+		Assertions.assertThat(aula.getHoraFim()).isEqualTo(aulaSalva.getHoraFim());
 		Assertions.assertThat(aula.getTipoDeAula()).isEqualTo(aulaSalva.getTipoDeAula());
 		Assertions.assertThat(aula.getValor()).isEqualTo(aulaSalva.getValor());
 		Assertions.assertThat(aula.getDetalhes()).isEqualTo(aulaSalva.getDetalhes());
@@ -204,7 +206,7 @@ public class AulaServiceTest {
 	private Aula criarAula() {
 		// TODO Auto-generated method stub
 		LocalDate data = LocalDate.now();
-		return Aula.builder().data(data).hora(LocalTime.now())
+		return Aula.builder().data(data).horaInicial(LocalTime.now())
 				.detalhes("Noturna").tipoDeAula(NaturezaAula.PARTICULAR).valor(BigDecimal.valueOf(1)).build();
 	}
 }

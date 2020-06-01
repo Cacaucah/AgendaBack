@@ -1,5 +1,7 @@
 package br.com.agenda.educacional.AgendaEducacional.services;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,7 +9,7 @@ import br.com.agenda.educacional.AgendaEducacional.model.entity.Aula;
 
 public interface AulaService {
 
-	Aula salvarAula(Aula aula);
+	Object salvarAula(Aula aula);
 
 	Aula atualizarAula(Aula aula);
 	
@@ -16,5 +18,6 @@ public interface AulaService {
   Optional<Aula> obterPorId(Long id);
  
   List<Aula> buscar(Aula aulasFiltro);
+  List<Aula> obterAulasPorHora(LocalTime horaInicial, LocalTime horaFinal, LocalDate data);
 
 }

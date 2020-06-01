@@ -65,13 +65,21 @@ public class Aula {
 	@Enumerated(value = EnumType.STRING)	
 	private NaturezaAula tipoDeAula;
 	
-	@Column(name = "datas")
+	@Column(name = "data")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
 	@JsonProperty("data")
 	private LocalDate data;
 	
-	@Column(name = "hora")
-	private LocalTime hora;
+	@Column(name = "hora_inicial")
+	//formata o padrão de retorno de hora que desejo
+    @JsonFormat(pattern = "HH:mm")
+	private LocalTime horaInicial;
+	
+
+	@Column(name = "hora_fim")
+	//formata o padrão de retorno de hora que desejo
+	@JsonFormat(pattern = "HH:mm")
+	private LocalTime horaFim;
 	
 	@Column(name = "detalhes")
 	private String detalhes;

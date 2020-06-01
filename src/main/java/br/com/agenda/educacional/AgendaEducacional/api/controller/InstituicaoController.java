@@ -87,12 +87,16 @@ public class InstituicaoController {
 				Instituicao instituicao = converter(dto);
 				instituicao.setId(entity.getId());
 				Professor professor = professorService.obterPorId(dto.getProfessor())
-						.orElseThrow(() -> new RegraNegocioException("Usuário não encontrado para o id informado"));
+						.orElseThrow(() -> new RegraNegocioException("Professor não encontrado para o id informado"));
 				instituicao.setProfessor(professor);
 				instituicao.setNome(dto.getNome());
 				instituicao.setRua(dto.getRua());
 				instituicao.setCep(dto.getCep());
+				instituicao.setSituacao(dto.getSituacao());
+				instituicao.setTelefone(dto.getTelefone());
+				instituicao.setCidade(dto.getCidade());
 				instituicao.setNumero(dto.getNumero());
+				instituicao.setEstado(dto.getEstado());
 				service.atualizarInstituicao(instituicao);
 				return ResponseEntity.ok(instituicao);
 			} catch (RegraNegocioException e) {
@@ -103,13 +107,17 @@ public class InstituicaoController {
 
 	private Instituicao converter(InstituicaoDTO dto) {
 		Instituicao instituicao = new Instituicao();
-		instituicao.setNome(dto.getNome());
-		instituicao.setRua(dto.getRua());
-		instituicao.setNumero(dto.getNumero());
-		instituicao.setCep(dto.getCep());
 		Professor professor = professorService.obterPorId(dto.getProfessor())
 				.orElseThrow(() -> new RegraNegocioException("Professor não encontrado para o id informado"));
 		instituicao.setProfessor(professor);
+		instituicao.setNome(dto.getNome());
+		instituicao.setRua(dto.getRua());
+		instituicao.setCep(dto.getCep());
+		instituicao.setSituacao(dto.getSituacao());
+		instituicao.setTelefone(dto.getTelefone());
+		instituicao.setCidade(dto.getCidade());
+		instituicao.setNumero(dto.getNumero());
+		instituicao.setEstado(dto.getEstado());
 		return instituicao;
 	}
 

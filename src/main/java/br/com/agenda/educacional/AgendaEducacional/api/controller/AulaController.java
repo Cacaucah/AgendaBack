@@ -3,13 +3,16 @@
  */
 package br.com.agenda.educacional.AgendaEducacional.api.controller;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
 import javax.swing.plaf.synth.SynthSeparatorUI;
 
+import org.hibernate.exception.GenericJDBCException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,6 +34,7 @@ import br.com.agenda.educacional.AgendaEducacional.model.entity.Aula;
 import br.com.agenda.educacional.AgendaEducacional.model.entity.Instituicao;
 import br.com.agenda.educacional.AgendaEducacional.model.entity.Materia;
 import br.com.agenda.educacional.AgendaEducacional.model.entity.Professor;
+import br.com.agenda.educacional.AgendaEducacional.model.repository.AulaRepository;
 import br.com.agenda.educacional.AgendaEducacional.services.AlunoService;
 import br.com.agenda.educacional.AgendaEducacional.services.AulaService;
 import br.com.agenda.educacional.AgendaEducacional.services.InstituicaoService;
@@ -52,9 +56,13 @@ public class AulaController {
 	private final InstituicaoService instituicaoService;
 	private final AulaService aulaService;
 
+
 	@GetMapping
-	public ResponseEntity buscar(@RequestParam(value = "datas", required = false) LocalDate data,
-			@RequestParam(value = "professor", required = true) Long idProfessor
+	public ResponseEntity buscar(@RequestParam(value = "data", required = false) LocalDate data,
+			@RequestParam(value = "professor", required = true) Long idProfessor,
+			@RequestParam(value = "hora_inicial", required = true) LocalTime horaInicial,
+			@RequestParam(value = "hora_fim", required = true) LocalTime horaFim
+			
 			) {
 		Aula aulaFiltro = new Aula();
 		aulaFiltro.setData(data);
@@ -66,7 +74,11 @@ public class AulaController {
 		aulaFiltro.setProfessor(professor.get());
 	
 		List<Aula> aulas = aulaService.buscar(aulaFiltro);
-		return ResponseEntity.ok(aulas);
+		if(aulas.size()>0){
+			return ResponseEntity.ok(aulas);
+		}else{
+			return new ResponseEntity(HttpStatus.FORBIDDEN);
+		}
 	}
 	@GetMapping("{id}/aula")
 	public ResponseEntity obterMateria(@PathVariable("id") Long id) {
@@ -78,11 +90,21 @@ public class AulaController {
 	}
 	
 	@PostMapping
-	public ResponseEntity salvar(@RequestBody AulaDTO dto) {
+	public Object salvar(@RequestBody AulaDTO dto) throws SQLException {
+		Aula aula= converter(dto);
+		List<Aula> aulas = aulaService.obterAulasPorHora(aula.getHoraInicial(), aula.getHoraFim(), aula.getData());
+		
 		try {
-			Aula aula= converter(dto);
-			aula = aulaService.salvarAula(aula);
-			return new ResponseEntity(aula, HttpStatus.CREATED);
+			if(aulas.size()>0){
+				
+				throw new RegraNegocioException("Não é possível agendar aula nesta faixa de horário para a data de hoje. ");
+			}
+			if(this.buscar(dto.getData(), dto.getProfessor(), dto.getHoraInicial(), dto.getHoraFim()).getStatusCodeValue()==200){
+				throw new RegraNegocioException("Já existe uma aula agendada para esta data");
+			}
+				aula = (Aula) aulaService.salvarAula(aula);
+				return new ResponseEntity(aula, HttpStatus.CREATED);
+			
 		} catch (RegraNegocioException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}
@@ -116,10 +138,9 @@ public class AulaController {
 		                .orElseThrow( () -> new RegraNegocioException("Materia não encontrada para o id informado"));
 				aula.setMateria(materia); 
 				
-				aula.setData(dto.getDatas());
-				
-				aula.setHora(dto.getHora());
-				
+				aula.setData(dto.getData());
+				aula.setHoraInicial(dto.getHoraInicial());
+				aula.setHoraFim(dto.getHoraFim());
 				aula.setDetalhes(dto.getDetalhes());
 				
 				aula.setValor(dto.getValor());
@@ -133,7 +154,7 @@ public class AulaController {
 	private Aula converter(AulaDTO dto) {
 		Aula aula = new Aula();
 		aula.setTipoDeAula(dto.getAula());
-		aula.setData(dto.getDatas());
+		aula.setData(dto.getData());
 			Professor professor = professorService.obterPorId(dto.getProfessor())
 	                .orElseThrow( () -> new RegraNegocioException("Professor não encontrado para o id informado."));
 		aula.setProfessor(professor);
@@ -154,7 +175,8 @@ public class AulaController {
 					.orElseThrow( () -> new RegraNegocioException("Matéria não encontrada para o id informado."));
 		aula.setMateria(materia);
 		
-		aula.setHora(dto.getHora());
+		aula.setHoraInicial(dto.getHoraInicial());
+		aula.setHoraFim(dto.getHoraFim());
 		aula.setDetalhes(dto.getDetalhes());
 		aula.setValor(dto.getValor());
 		return aula;

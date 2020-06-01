@@ -28,8 +28,9 @@ public class AulaDTO {
 
 	private NaturezaAula aula;
 	@JsonFormat(pattern="yyyy-MM-dd")
-	private LocalDate datas;
-	private LocalTime hora;
+	private LocalDate data;
+	private LocalTime horaInicial;
+	private LocalTime horaFim;
 	private String detalhes;
 	private BigDecimal valor;
 	private Long materia;

@@ -1,6 +1,8 @@
 package br.com.agenda.educacional.AgendaEducacional.services.impl;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -27,7 +29,14 @@ public class AulaServiceImplementacao implements AulaService {
 	public AulaServiceImplementacao(AulaRepository repository) {
 		this.repository = repository;
 	}
-
+	@Override
+	@Transactional
+	public List<Aula> obterAulasPorHora(LocalTime horaInicial, LocalTime horaFinal, LocalDate data){
+		System.out.println(horaInicial);
+		System.out.println(horaFinal);
+		System.out.println(data);
+		return repository.obterAulasDentroDeUmIntervalo(horaInicial,  horaFinal, data);
+	}
 	@Override
 	@Transactional
 	public Aula salvarAula(Aula aula) {
