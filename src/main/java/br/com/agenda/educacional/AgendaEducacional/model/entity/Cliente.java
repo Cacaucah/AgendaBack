@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import br.com.agenda.educacional.AgendaEducacional.enums.NaturezaAula;
 import br.com.agenda.educacional.AgendaEducacional.enums.Situacao;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,13 +26,12 @@ import lombok.NoArgsConstructor;
  *
  */
 @Entity
-@Table(name = "instituicao", schema = "agendaeducacional")
+@Table(name = "clientes", schema = "agendaeducacional")
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Instituicao  { 
-	
+public class Cliente  { 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
@@ -62,6 +62,10 @@ public class Instituicao  {
 	@Column(name = "situacao")
 	@Enumerated(value = EnumType.STRING)
 	private Situacao situacao;
+	
+	@Column(name = "tipo_cliente", nullable = true )
+//	@Enumerated(value = EnumType.STRING)
+	private String tipoCliente;
 	
 	@ManyToOne
 	@JoinColumn (name = "professor")

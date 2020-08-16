@@ -3,6 +3,7 @@
  */
 package br.com.agenda.educacional.AgendaEducacional.api.dto;
 
+import br.com.agenda.educacional.AgendaEducacional.enums.NaturezaAula;
 import br.com.agenda.educacional.AgendaEducacional.enums.Situacao;
 import br.com.agenda.educacional.AgendaEducacional.model.entity.Localizacao;
 import lombok.AllArgsConstructor;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 //cria um construtor com argumentos
 @AllArgsConstructor
-public class InstituicaoDTO {
+public class ClienteDTO {
 	private String nome;
 	private String rua;
 	private Long numero;
@@ -30,4 +31,5 @@ public class InstituicaoDTO {
 	private String cidade;
 	private Situacao situacao;
 	private String telefone;
+	private String tipoCliente;
 }

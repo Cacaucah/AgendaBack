@@ -7,7 +7,6 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.agenda.educacional.AgendaEducacional.model.entity.Instituicao;
 import br.com.agenda.educacional.AgendaEducacional.model.entity.Localizacao;
 
 /**

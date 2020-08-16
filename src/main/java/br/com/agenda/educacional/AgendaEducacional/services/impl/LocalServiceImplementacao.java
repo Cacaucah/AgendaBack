@@ -9,9 +9,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import br.com.agenda.educacional.AgendaEducacional.exceptions.RegraNegocioException;
-import br.com.agenda.educacional.AgendaEducacional.model.entity.Instituicao;
 import br.com.agenda.educacional.AgendaEducacional.model.entity.Localizacao;
-import br.com.agenda.educacional.AgendaEducacional.model.repository.InstituicaoRepository;
 import br.com.agenda.educacional.AgendaEducacional.model.repository.LocalizacaoRepository;
 import br.com.agenda.educacional.AgendaEducacional.services.LocalService;
 

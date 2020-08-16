@@ -9,8 +9,6 @@ import java.time.LocalTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +19,6 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import br.com.agenda.educacional.AgendaEducacional.enums.NaturezaAula;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,20 +47,12 @@ public class Aula {
 	private Materia materia;
 	
 	@ManyToOne
-	@JoinColumn(name = "aluno")
-	private Aluno aluno;
-	
-	@ManyToOne
-	@JoinColumn(name = "instituicao")
-	private Instituicao instituicao;
+	@JoinColumn(name = "cliente")
+	private Cliente cliente;
 	
 	@ManyToOne
 	@JoinColumn(name = "professor")
 	private Professor professor;
-	
-	@Column(name = "aula")
-	@Enumerated(value = EnumType.STRING)	
-	private NaturezaAula tipoDeAula;
 	
 	@Column(name = "data")
     @JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")

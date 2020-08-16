@@ -32,9 +32,6 @@ public class AulaServiceImplementacao implements AulaService {
 	@Override
 	@Transactional
 	public List<Aula> obterAulasPorHora(LocalTime horaInicial, LocalTime horaFinal, LocalDate data){
-		System.out.println(horaInicial);
-		System.out.println(horaFinal);
-		System.out.println(data);
 		return repository.obterAulasDentroDeUmIntervalo(horaInicial,  horaFinal, data);
 	}
 	@Override
@@ -62,9 +59,9 @@ public class AulaServiceImplementacao implements AulaService {
 		}
 		// se o tipo da aula for particular e o valor informado for menor que
 		// zero, lançar excpetion
-		if (aula.getTipoDeAula().equals(NaturezaAula.PARTICULAR) && aula.getValor().compareTo(BigDecimal.ZERO) < 1) {
-			throw new RegraNegocioException("Informe um Valor válido.");
-		}
+//		if (aula.getTipoDeAula().equals(NaturezaAula.PARTICULAR) && aula.getValor().compareTo(BigDecimal.ZERO) < 1) {
+//			throw new RegraNegocioException("Informe um Valor válido.");
+//		}
 		
 	}
 	//retorna a data atual

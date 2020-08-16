@@ -53,7 +53,6 @@ public class AulaServiceTest {
 		aulaSalva.setHoraInicial(LocalTime.now());
 		aulaSalva.setHoraFim(LocalTime.now());
 		aulaSalva.setDetalhes("Noturna");
-		aulaSalva.setTipoDeAula(NaturezaAula.PARTICULAR);
 		aulaSalva.setValor(BigDecimal.valueOf(1));
 		// ao chamar o metodo salvar ele retorna o institutoSalvo
 		Mockito.when(repository.save(aulaASalvar)).thenReturn(aulaSalva);
@@ -62,14 +61,12 @@ public class AulaServiceTest {
 
 		// Assertions that quer dizer: verifique que
 		Assertions.assertThat(aula.getId()).isEqualTo(aulaSalva.getId());
-		Assertions.assertThat(aula.getAluno()).isEqualTo(aulaSalva.getAluno());
 		Assertions.assertThat(aula.getProfessor()).isEqualTo(aulaSalva.getProfessor());
-		Assertions.assertThat(aula.getInstituicao()).isEqualTo(aulaSalva.getInstituicao());
+		Assertions.assertThat(aula.getCliente()).isEqualTo(aulaSalva.getCliente());
 		Assertions.assertThat(aula.getMateria()).isEqualTo(aulaSalva.getMateria());
 		Assertions.assertThat(aula.getData()).isEqualTo(aulaSalva.getData());
 		Assertions.assertThat(aula.getHoraInicial()).isEqualTo(aulaSalva.getHoraInicial());
 		Assertions.assertThat(aula.getHoraFim()).isEqualTo(aulaSalva.getHoraFim());
-		Assertions.assertThat(aula.getTipoDeAula()).isEqualTo(aulaSalva.getTipoDeAula());
 		Assertions.assertThat(aula.getValor()).isEqualTo(aulaSalva.getValor());
 		Assertions.assertThat(aula.getDetalhes()).isEqualTo(aulaSalva.getDetalhes());
 	}
@@ -185,7 +182,6 @@ public class AulaServiceTest {
 		Throwable erro = Assertions.catchThrowable(() -> service.validar(aula));
 		Assertions.assertThat(erro).isInstanceOf(RegraNegocioException.class).hasMessage("Descrição inválida.");
 
-		aula.setTipoDeAula(NaturezaAula.PARTICULAR);
 		aula.setValor(BigDecimal.ZERO);
 		aula.setId(1l);
 		aula.setDetalhes("Hey");
@@ -195,7 +191,6 @@ public class AulaServiceTest {
 		
 		LocalDate data = LocalDate.now();
 		aula.setData(data);
-		aula.setTipoDeAula(NaturezaAula.PARTICULAR);
 		aula.setValor(BigDecimal.TEN);
 		aula.setId(1l);
 		aula.setDetalhes("Hey");
@@ -207,6 +202,6 @@ public class AulaServiceTest {
 		// TODO Auto-generated method stub
 		LocalDate data = LocalDate.now();
 		return Aula.builder().data(data).horaInicial(LocalTime.now())
-				.detalhes("Noturna").tipoDeAula(NaturezaAula.PARTICULAR).valor(BigDecimal.valueOf(1)).build();
+				.detalhes("Noturna").valor(BigDecimal.valueOf(1)).build();
 	}
 }

@@ -25,8 +25,6 @@ import lombok.Setter;
 //cria um construtor com argumentos
 @AllArgsConstructor
 public class AulaDTO {
-
-	private NaturezaAula aula;
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate data;
 	private LocalTime horaInicial;
@@ -35,7 +33,6 @@ public class AulaDTO {
 	private BigDecimal valor;
 	private Long materia;
 	private Long professor;
-	private Long instituicao;
-	private Long aluno;
+	private Long cliente;
 
 }

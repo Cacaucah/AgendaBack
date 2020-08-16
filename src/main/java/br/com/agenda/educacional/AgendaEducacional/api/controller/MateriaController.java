@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.agenda.educacional.AgendaEducacional.api.dto.MateriaDTO;
-import br.com.agenda.educacional.AgendaEducacional.enums.Situacao;
 import br.com.agenda.educacional.AgendaEducacional.exceptions.RegraNegocioException;
-import br.com.agenda.educacional.AgendaEducacional.model.entity.Aluno;
 import br.com.agenda.educacional.AgendaEducacional.model.entity.Materia;
 import br.com.agenda.educacional.AgendaEducacional.model.entity.Professor;
 import br.com.agenda.educacional.AgendaEducacional.services.MateriaService;
